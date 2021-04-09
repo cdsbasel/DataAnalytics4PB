@@ -11,7 +11,7 @@ college_train <- read_csv(file = "1_Data/college_train.csv")
 college_train <- college_train %>% mutate_if(is.character, factor) 
 
 # Set control to none
-ctrl <- trainControl(method = "cv") 
+ctrl <- trainControl(method = "none") 
 
 ### STANDARD REGRESSION --------
 
@@ -33,8 +33,7 @@ glm_fit <- predict(graduation_glm)
 graduation_rpart <- train(form = Grad.Rate ~ .,
                           data = college_train,
                           method = "rpart",
-                          trControl = ctrl_cv,
-                          tuneGrid = data.frame(cp = cp_vec))
+                          trControl = ctrl)
 
 
 # Save fitted values
@@ -58,6 +57,5 @@ criterion_train <- college_train$Grad.Rate
 
 # evaluate fit
 postResample(pred = glm_fit, obs = criterion_train)
-postResample(pred = lasso_fit, obs = criterion_train)
 postResample(pred = rpart_fit, obs = criterion_train)
 postResample(pred = rf_fit, obs = criterion_train)
