@@ -90,7 +90,7 @@ graduation_rf <- train(form = Grad.Rate ~ .,
 plot(graduation_rf)
 
 # Save fitted values
-rf_fit <- predict(graduation_rpart)
+rf_fit <- predict(graduation_rf)
 
 ### EVALUATE FIT --------
 
