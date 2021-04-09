@@ -23,9 +23,12 @@ graduation_glm <- train(form = Grad.Rate ~ .,
 
 # Show final model
 graduation_glm$finalModel
+summary(graduation_glm)
 
 # Save fitted values
 glm_fit <- predict(graduation_glm)
+
+plot(glm_fit, college_train$Grad.Rate)
 
 ### DECISION TREE --------
 
@@ -33,11 +36,20 @@ glm_fit <- predict(graduation_glm)
 graduation_rpart <- train(form = Grad.Rate ~ .,
                           data = college_train,
                           method = "rpart",
-                          trControl = ctrl)
+                          trControl = ctrl, 
+                          tuneGrid = data.frame(cp = .01))
 
 
 # Save fitted values
 rpart_fit <- predict(graduation_rpart)
+
+plot(as.party(graduation_rpart$finalModel))
+
+plot(rpart_fit, college_train$Grad.Rate)
+
+abline(v = mean(college_train$Grad.Rate))
+
+table(rpart_fit)
 
 ### RANDOM FOREST --------
 
@@ -48,7 +60,9 @@ graduation_rf <- train(form = Grad.Rate ~ .,
                        trControl = ctrl)
 
 # Save fitted values
-rf_fit <- predict(graduation_rpart)
+rf_fit <- predict(graduation_rf)
+
+summary(graduation_rf)
 
 ### EVALUATE FIT --------
 
@@ -59,3 +73,6 @@ criterion_train <- college_train$Grad.Rate
 postResample(pred = glm_fit, obs = criterion_train)
 postResample(pred = rpart_fit, obs = criterion_train)
 postResample(pred = rf_fit, obs = criterion_train)
+
+
+

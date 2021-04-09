@@ -33,7 +33,8 @@ glm_fit <- predict(graduation_glm)
 graduation_rpart <- train(form = Grad.Rate ~ .,
                           data = college_train,
                           method = "rpart",
-                          trControl = ctrl)
+                          trControl = ctrl,
+                          tuneGrid = data.frame(cp = .01))
 
 
 # Save fitted values
@@ -48,7 +49,7 @@ graduation_rf <- train(form = Grad.Rate ~ .,
                        trControl = ctrl)
 
 # Save fitted values
-rf_fit <- predict(graduation_rpart)
+rf_fit <- predict(graduation_rf)
 
 ### EVALUATE FIT --------
 
@@ -57,7 +58,6 @@ criterion_train <- college_train$Grad.Rate
 
 # evaluate fit
 postResample(pred = glm_fit, obs = criterion_train)
-postResample(pred = lasso_fit, obs = criterion_train)
 postResample(pred = rpart_fit, obs = criterion_train)
 postResample(pred = rf_fit, obs = criterion_train)
 
