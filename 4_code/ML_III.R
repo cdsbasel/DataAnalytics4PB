@@ -109,16 +109,16 @@ postResample(pred = rf_fit, obs = criterion_train)
 criterion_test <- college_test$Grad.Rate
 
 # new predictions
-glm_fit <- predict(graduation_glm, newdata = college_test)
-lasso_fit <- predict(graduation_lasso, newdata = college_test)
-rpart_fit <- predict(graduation_rpart, newdata = college_test)
-rf_fit <- predict(graduation_rf, newdata = college_test)
+glm_pred <- predict(graduation_glm, newdata = college_test)
+lasso_pred <- predict(graduation_lasso, newdata = college_test)
+rpart_pred <- predict(graduation_rpart, newdata = college_test)
+rf_pred <- predict(graduation_rf, newdata = college_test)
 
 # evaluate fit
-postResample(pred = glm_fit, obs = criterion_test)
-postResample(pred = lasso_fit, obs = criterion_test)
-postResample(pred = rpart_fit, obs = criterion_test)
-postResample(pred = rf_fit, obs = criterion_test)
+postResample(pred = glm_pred, obs = criterion_test)
+postResample(pred = lasso_pred, obs = criterion_test)
+postResample(pred = rpart_pred, obs = criterion_test)
+postResample(pred = rf_pred, obs = criterion_test)
 
 
 

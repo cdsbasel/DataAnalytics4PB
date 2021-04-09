@@ -73,9 +73,9 @@ college_test <- college_test %>% mutate_if(is.character, factor)
 criterion_test <- college_test$Grad.Rate
 
 # new predictions
-glm_fit <- predict(graduation_glm, newdata = college_test)
-rpart_fit <- predict(graduation_rpart, newdata = college_test)
-rf_fit <- predict(graduation_rf, newdata = college_test)
+glm_pred <- predict(graduation_glm, newdata = college_test)
+rpart_pred <- predict(graduation_rpart, newdata = college_test)
+rf_pred <- predict(graduation_rf, newdata = college_test)
 
 # evaluate fit
 postResample(pred = glm_fit, obs = criterion_test)
